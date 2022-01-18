@@ -16,7 +16,7 @@ def output(urlId,full_text):
   output_qa = {
   "urlId":urlId,
   "questionType":"ONE_WORD",
-  "question":qList
+  "questions":qList
   }
   
 
@@ -101,9 +101,9 @@ def output(urlId,full_text):
       "Answer":keyword
     }
     qList.append(qa)
-  output_qa["question"] = qList
+  output_qa["questions"] = qList
   
-  API_ENDPOINT = "" # Enter DB Endpoint 
+  API_ENDPOINT = "https://question-app-module.herokuapp.com/question/create" # Enter DB Endpoint 
   requests.post(url = API_ENDPOINT, data = json.dumps(output_qa,indent = 2))
 
   return "Generated Questions and Updated in DB"

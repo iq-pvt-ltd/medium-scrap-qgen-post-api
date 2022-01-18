@@ -1,4 +1,5 @@
 from qgen import output
+from scrapper import scrap
 from fastapi import FastAPI, Request
 
 app = FastAPI()
@@ -11,4 +12,6 @@ async def qgen():
 @app.post("/qgen")
 async def qgen(context : Request):
     req_info = await context.json()
-    return output(req_info["urlId"],req_info["context"])
+    scrapContent = scrap(req_info["inputLink"])
+    print("Scrapped")
+    return output(req_info['urlId'],scrapContent["Content"])
