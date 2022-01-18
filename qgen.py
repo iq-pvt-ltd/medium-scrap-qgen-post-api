@@ -104,6 +104,6 @@ def output(urlId,full_text):
   output_qa["question"] = qList
   
   API_ENDPOINT = "" # Enter DB Endpoint 
-  requests.post(url = API_ENDPOINT, data = json.dumps(output_qa))
+  requests.post(url = API_ENDPOINT, data = json.dumps(output_qa,indent = 2))
 
   return "Generated Questions and Updated in DB"
