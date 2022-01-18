@@ -2,6 +2,7 @@ import nltk
 import json
 import pke
 import string
+import requests
 from nltk.corpus import stopwords
 from flashtext import KeywordProcessor
 from nltk.tokenize import sent_tokenize
@@ -101,4 +102,8 @@ def output(urlId,full_text):
     }
     qList.append(qa)
   output_qa["question"] = qList
-  return output_qa
+  
+  API_ENDPOINT = "" # Enter DB Endpoint 
+  requests.post(url = API_ENDPOINT, data = json.dumps(output_qa))
+
+  return "Generated Questions and Updated in DB"
