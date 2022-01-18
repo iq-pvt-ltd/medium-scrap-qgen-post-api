@@ -98,12 +98,16 @@ def output(urlId,full_text):
     output = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
     qa = {
       "question":output[0],
-      "Answer":keyword
+      "answer":keyword
     }
     qList.append(qa)
   output_qa["questions"] = qList
   
   API_ENDPOINT = "https://question-app-module.herokuapp.com/question/create" # Enter DB Endpoint 
-  requests.post(url = API_ENDPOINT, data = json.dumps(output_qa,indent = 2))
+  req = requests.post(url = API_ENDPOINT, json = output_qa)
 
-  return "Generated Questions and Updated in DB"
+  if req.status_code!=200:
+      print("Error:",req.status_code,"occurred")
+  else:
+    print("......Exiting Q_gen.....")
+    return {"Message":"Generated Questions and Updated in DataBase"}

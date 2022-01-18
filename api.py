@@ -13,5 +13,5 @@ async def qgen():
 async def qgen(context : Request):
     req_info = await context.json()
     scrapContent = scrap(req_info["inputLink"])
-    print("Scrapped")
+    print(".......Scrapped.......")
     return output(req_info['urlId'],scrapContent["Content"])

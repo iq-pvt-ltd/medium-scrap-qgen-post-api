@@ -7,8 +7,6 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 def scrap(inputLink):
-    # scrapLink = req_info['message']['attributes']['inputLink']
-    # scrapLink = req_info["inputLink"]
 
     web = DesiredCapabilities.CHROME
     options = webdriver.ChromeOptions()
@@ -45,7 +43,7 @@ def scrap(inputLink):
         '''
             Returns the JSON data
         '''
-        print(output_json)
         return output_json
     finally:
-        print("Final")
+        driver.quit()
+        print("......Exiting Medium.....")
