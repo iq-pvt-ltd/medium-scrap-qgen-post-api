@@ -1,12 +1,17 @@
 import nltk
+# nltk.download('stopwords', download_dir='./nltk_data')
+# nltk.download('popular', download_dir='./nltk_data')
 import json
 import pke
 import string
-from summarizer import Summarizer
+# from summarizer import Summarizer
 from nltk.corpus import stopwords
 from flashtext import KeywordProcessor
 from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+# nltk.download('stopwords')
+# nltk.download('popular')
 
 
 
