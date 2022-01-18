@@ -1,17 +1,11 @@
 import nltk
-# nltk.download('stopwords', download_dir='./nltk_data')
-# nltk.download('popular', download_dir='./nltk_data')
 import json
 import pke
 import string
-# from summarizer import Summarizer
 from nltk.corpus import stopwords
 from flashtext import KeywordProcessor
 from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-# nltk.download('stopwords')
-# nltk.download('popular')
 
 
 
@@ -107,34 +101,4 @@ def output(urlId,full_text):
     }
     qList.append(qa)
   output_qa["question"] = qList
-  # print(output_qa.jsonify())
   return output_qa
-
-
-
-
-
-'''
-Note:
-Fast Api
-Local download Model
-JSON :
-{
-  "urlId":"12345667889",
-  "questionType":"FILL_BLANK",
-  "questions":[
-    {
-      "question":"what is ...",
-      "answer":"ans"
-      
-    },
-    {
-      "question":"what is ...",
-      "answer":"ans"
-      
-    }
-    ]
-}
-
-
-'''
