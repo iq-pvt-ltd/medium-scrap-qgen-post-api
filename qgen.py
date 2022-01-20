@@ -11,15 +11,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 
 def output(urlId,full_text):
-  qList = []
-
-  output_qa = {
-  "urlId":urlId,
-  "questionType":"ONE_WORD",
-  "questions":qList
-  }
   
-
   def get_nouns_multipartite(text):
     out=[]
     extractor = pke.unsupervised.MultipartiteRank()
@@ -90,6 +82,13 @@ def output(urlId,full_text):
       return f"{answer} \\n {context}"
 
   qList = []
+
+  output_qa = {
+  "urlId":urlId,
+  "keywords":filtered_keys,
+  "questionType":"ONE_WORD",
+  "questions":qList
+  }
 
   for keyword in keyword_sentence_mapping:
     text = format_inputs(keyword_sentence_mapping[keyword][0], keyword)
