@@ -103,7 +103,7 @@ def output(urlId,full_text):
     qList.append(qa)
   output_qa["questions"] = qList
   
-  API_ENDPOINT = "https://question-app-module.herokuapp.com/question/create" # Enter DB Endpoint 
+  API_ENDPOINT = "https://post-question-2o4gzaw5dq-el.a.run.app/question/create" # Enter DB Endpoint 
   req = requests.post(url = API_ENDPOINT, json = output_qa)
 
   if req.status_code!=200:

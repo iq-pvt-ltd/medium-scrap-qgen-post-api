@@ -12,6 +12,6 @@ async def qgen():
 @app.post("/qgen")
 async def qgen(context : Request):
     req_info = await context.json()
-    scrapContent = scrap(req_info["inputLink"])
+    scrapContent = scrap(req_info['message']['attributes']['inputLink'])
     print(".......Scrapped.......")
-    return output(req_info['urlId'],scrapContent["Content"])
+    return output(req_info['message']['attributes']['urlId'],scrapContent["Content"])
