@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from flashtext import KeywordProcessor
 from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
+import os
 
 
 def output(urlId,full_text):
@@ -103,7 +103,9 @@ def output(urlId,full_text):
     qList.append(qa)
   output_qa["questions"] = qList
   
-  API_ENDPOINT = "https://post-question-2o4gzaw5dq-el.a.run.app/question/create" # Enter DB Endpoint 
+  print(os.getenv('Q_POST_URL'))
+  API_ENDPOINT = os.getenv('Q_POST_URL') # Enter DB Endpoint 
+  
   req = requests.post(url = API_ENDPOINT, json = output_qa)
 
   if req.status_code!=200:
