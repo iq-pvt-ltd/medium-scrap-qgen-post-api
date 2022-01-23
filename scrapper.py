@@ -1,8 +1,6 @@
+import re
 import json
-from nis import cat
 from selenium import webdriver
-from fastapi import FastAPI, Form,Request
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
@@ -26,24 +24,44 @@ def scrap(inputLink):
     driver.get(inputLink)
 
     try:
-        article = driver.find_elements_by_xpath('//*[@id="root"]/div/div[3]/article/div/div/section[1]/div/div')
-        article_title = article[0].find_elements_by_tag_name("h1")
+        # article = driver.find_elements_by_xpath('//*[@id="root"]/div/div[3]/article/div/div/section[1]/div/div')
+        # article_title = article[0].find_elements_by_tag_name("h1")
+
+        # for data in range(len(article)):
+        #     temp_data = article[data].find_elements_by_tag_name("p")
+        #     for text in temp_data:
+        #         allContent.append(text.text)
+        # allPara = "".join(allContent)
+        # '''
+        #     The content is been formatted to JSON
+        # '''
+        # medium = {"Title":article_title[0].text,"Content":allPara}
+        # output = json.dumps(medium,indent=4)
+        # output_json = json.loads(output)
+        # '''
+        #     Returns the JSON data
+        # '''
+        # return output_json
+
+        article = driver.find_elements_by_tag_name('section')
+        article_title = driver.find_element_by_tag_name('h1')
 
         for data in range(len(article)):
-            temp_data = article[data].find_elements_by_tag_name("p")
+            temp_data = temp_data = article[data].find_elements_by_tag_name("p")
             for text in temp_data:
                 allContent.append(text.text)
+
         allPara = "".join(allContent)
+        split_sentence = re.split("min read",allPara)[1:]
+        result = "".join(split_sentence)
+
         '''
-            The content is been formatted to JSON
+           The content is been formatted to JSON
         '''
-        medium = {"Title":article_title[0].text,"Content":allPara}
-        output = json.dumps(medium,indent=4)
-        output_json = json.loads(output)
-        '''
-            Returns the JSON data
-        '''
-        return output_json
+        medium = {"Title":article_title.text,"Content":result}
+        output = json.dumps(medium,indent=2)
+
+        return output
     finally:
-        driver.quit()
         print("......Exiting Medium.....")
+        driver.quit()
