@@ -19,4 +19,5 @@ async def qgen(context : Request):
     print(req_info['message']['attributes']['inputLink'])
     scrapContent = scrap(req_info['message']['attributes']['inputLink'])
     print(".......Scrapped.......")
-    return output(req_info['message']['attributes']['urlId'],scrapContent["Content"])
+    return scrapContent
+    # return output(req_info['message']['attributes']['urlId'],scrapContent["Content"])
