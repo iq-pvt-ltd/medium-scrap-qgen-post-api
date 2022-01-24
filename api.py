@@ -13,11 +13,10 @@ async def qgen():
 async def qgen(context : Request):
     req_info = await context.json()
     print(".......req_info.......")
-    print(req_info)
-    print(req_info['message'])
-    print(req_info['message']['attributes'])
-    print(req_info['message']['attributes']['inputLink'])
+    # print(req_info)
+    # print(req_info['message'])
+    # print(req_info['message']['attributes'])
+    # print(req_info['message']['attributes']['inputLink'])
     scrapContent = scrap(req_info['message']['attributes']['inputLink'])
     print(".......Scrapped.......")
-    return scrapContent
-    # return output(req_info['message']['attributes']['urlId'],scrapContent["Content"])
+    return output(req_info['message']['attributes']['urlId'],scrapContent["Content"])
