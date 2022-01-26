@@ -82,6 +82,8 @@ def scrap(inputLink,urlId):
                 print("Cannot be Scrapped!")
                 print("Sorry",error_2.__class__,"Occured")
 
+        else:
+            pass
     finally:
         print("......Exiting Medium......")
         driver.quit()
