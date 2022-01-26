@@ -1,3 +1,4 @@
+import os
 import re
 import json
 import requests
@@ -7,6 +8,8 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 def scrap(inputLink,urlId):
     Error = None
+    SELENIUM_API_ENDPOINT = os.getenv('SELENIUM_URL')
+    DATABASE_API_ENDPOINT = os.getenv('Q_POST_URL')
     web = DesiredCapabilities.CHROME
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
@@ -15,7 +18,7 @@ def scrap(inputLink,urlId):
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
     driver = webdriver.Remote(
-        command_executor='https://selenium.vaathi.ai/wd/hub',
+        command_executor=SELENIUM_API_ENDPOINT,
         desired_capabilities=web,
         options=options)
 
@@ -77,8 +80,8 @@ def scrap(inputLink,urlId):
                 return output_json
                 
             except Exception as error_2:
-                API_ENDPOINT = "https://cloud-trigger-dev-2o4gzaw5dq-el.a.run.app/question_link/update-status/{id}"
-                requests.put(API_ENDPOINT.format(id=urlId))
+                API_ENDPOINT = "{}/question_link/update-status/{id}"
+                requests.put(API_ENDPOINT.format(DATABASE_API_ENDPOINT,id=urlId))
                 print("Cannot be Scrapped!")
                 print("Sorry",error_2.__class__,"Occured")
 
