@@ -9,7 +9,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 def scrap(inputLink,urlId):
     Error = None
     SELENIUM_API_ENDPOINT = os.getenv('SELENIUM_URL')
-    DATABASE_API_ENDPOINT = os.getenv('Q_POST_URL')
+    DATABASE_API_ENDPOINT = os.getenv('SCRAP_UPDATE_URL')
     web = DesiredCapabilities.CHROME
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
@@ -80,7 +80,7 @@ def scrap(inputLink,urlId):
                 return output_json
                 
             except Exception as error_2:
-                API_ENDPOINT = "{}/question_link/update-status/{id}"
+                API_ENDPOINT = "{}/{id}"
                 requests.put(API_ENDPOINT.format(DATABASE_API_ENDPOINT,id=urlId))
                 print("Cannot be Scrapped!")
                 print("Sorry",error_2.__class__,"Occured")
