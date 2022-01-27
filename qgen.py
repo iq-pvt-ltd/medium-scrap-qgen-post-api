@@ -102,8 +102,10 @@ def output(urlId,full_text):
     qList.append(qa)
   output_qa["questions"] = qList
   
-  print(os.getenv('Q_POST_URL'))
-  API_ENDPOINT = os.getenv('Q_POST_URL') # Enter DB Endpoint 
+  print(os.getenv('CLOUD_TRIGGER_URL'))
+  API_ENDPOINT = "{}/question/create"
+  API_ENDPOINT.format(os.getenv('CLOUD_TRIGGER_URL'))
+  # API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL') # Enter DB Endpoint 
   
   req = requests.post(url = API_ENDPOINT, json = output_qa)
 
