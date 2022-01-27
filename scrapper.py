@@ -8,8 +8,10 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 def scrap(inputLink,urlId):
     Error = None
+    # Environment variable
     SELENIUM_API_ENDPOINT = os.getenv('SELENIUM_URL')
     DATABASE_API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL')
+
     web = DesiredCapabilities.CHROME
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
