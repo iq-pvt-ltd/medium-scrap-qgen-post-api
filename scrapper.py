@@ -8,8 +8,10 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 def scrap(inputLink,urlId):
     Error = None
+    # Environment variable
     SELENIUM_API_ENDPOINT = os.getenv('SELENIUM_URL')
     DATABASE_API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL')
+
     web = DesiredCapabilities.CHROME
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
@@ -84,6 +86,7 @@ def scrap(inputLink,urlId):
                 requests.put(API_ENDPOINT.format(DATABASE_API_ENDPOINT,id=urlId))
                 print("Cannot be Scrapped!")
                 print("Sorry",error_2.__class__,"Occured")
+                return None
         else:
             pass
     finally:

@@ -11,6 +11,7 @@ import os
 
 
 def output(urlId,full_text):
+  print(".....Entering Q-gen.......")
   
   def get_nouns_multipartite(text):
     out=[]
@@ -101,13 +102,12 @@ def output(urlId,full_text):
     }
     qList.append(qa)
   output_qa["questions"] = qList
-  
-  print(os.getenv('CLOUD_TRIGGER_URL'))
+
+
+  DATABASE_API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL')
   API_ENDPOINT = "{}/question/create"
-  API_ENDPOINT.format(os.getenv('CLOUD_TRIGGER_URL'))
-  # API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL') # Enter DB Endpoint 
-  
-  req = requests.post(url = API_ENDPOINT, json = output_qa)
+  postDB = API_ENDPOINT.format(DATABASE_API_ENDPOINT)
+  req = requests.post(url = postDB, json = output_qa)
 
   if req.status_code!=200:
       print("Error:",req.status_code,"occurred")
