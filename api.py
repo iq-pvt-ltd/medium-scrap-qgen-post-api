@@ -18,4 +18,8 @@ async def qgen(context : Request):
     print(os.getenv('SELENIUM_URL'))
     scrapContent = scrap(req_info['message']['attributes']['inputLink'],req_info['message']['attributes']['urlId'])
     print(".......Scrapped.......")
-    return output(req_info['message']['attributes']['urlId'],scrapContent["Content"])
+    if scrapContent == None or len(scrapContent["Content"])==0:
+        print(".....Exiting.....")
+        return {"Message":"Unable to Generate Question"}
+    else:
+        return output(req_info['message']['attributes']['urlId'],scrapContent["Content"])

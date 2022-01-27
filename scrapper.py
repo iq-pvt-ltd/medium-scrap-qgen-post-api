@@ -86,6 +86,7 @@ def scrap(inputLink,urlId):
                 requests.put(API_ENDPOINT.format(DATABASE_API_ENDPOINT,id=urlId))
                 print("Cannot be Scrapped!")
                 print("Sorry",error_2.__class__,"Occured")
+                return None
         else:
             pass
     finally:
