@@ -11,6 +11,9 @@ import os
 
 
 def output(urlId,full_text):
+  ''''
+  Q_GENERATOR FUNCTION-->Hugging Face
+  '''
   print(".....Entering Q-gen.......")
   
   def get_nouns_multipartite(text):
@@ -103,7 +106,10 @@ def output(urlId,full_text):
     qList.append(qa)
   output_qa["questions"] = qList
 
-
+  ''''
+  POST THE QUESTIONS TO THE DATABASE
+  '''
+  
   DATABASE_API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL')
   API_ENDPOINT = "{}/question/create"
   postDB = API_ENDPOINT.format(DATABASE_API_ENDPOINT)
@@ -112,5 +118,8 @@ def output(urlId,full_text):
   if req.status_code!=200:
       print("Error:",req.status_code,"occurred")
   else:
+    '''
+    FINISH PROCESS AND RETURNS MESSAGE
+    '''
     print("......Exiting Q_gen.....")
     return {"Message":"Generated Questions and Updated in DataBase"}
