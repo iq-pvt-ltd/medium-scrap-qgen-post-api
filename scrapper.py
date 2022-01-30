@@ -1,12 +1,11 @@
 import os
-import re
 import json
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
-def scrap(inputLink,urlId):
+def scrap(inputLink, urlId):
     Error = None
     '''
     ENVIORNMENT VARIABLES
@@ -21,7 +20,7 @@ def scrap(inputLink,urlId):
     options.add_argument("--disable-dev-shm-usage")
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
-    #Create a new instance of the Chrome driver
+    # Create a new instance of the Chrome driver
 
     driver = webdriver.Remote(
         command_executor=SELENIUM_API_ENDPOINT,
@@ -39,7 +38,7 @@ def scrap(inputLink,urlId):
         '''
         print("Scrapping using SectionTag")
         article = driver.find_elements_by_tag_name('section')
-        article_title = driver.find_element_by_tag_name('h1')  
+        article_title = driver.find_element_by_tag_name('h1')
 
         for data in range(len(article)):
             temp_data = article[data].find_elements_by_tag_name("p")
@@ -49,8 +48,8 @@ def scrap(inputLink,urlId):
         '''
             The content is been formatted to JSON
         '''
-        medium = {"Title":article_title.text,"Content":allPara}
-        output = json.dumps(medium,indent=2)
+        medium = {"Title": article_title.text, "Content": allPara}
+        output = json.dumps(medium, indent=2)
         output_json = json.loads(output)
         '''
             Returns the JSON data
@@ -61,7 +60,7 @@ def scrap(inputLink,urlId):
         ''''
         EXCEPTION HANDLING
         '''
-        print("Sorry",error_1.__class__,"Occured")
+        print("Sorry", error_1.__class__, "Occured")
         Error = True
 
         if Error == True:
@@ -70,7 +69,8 @@ def scrap(inputLink,urlId):
                 SCRAPPING MEDIUM USING X_PATH 
                 '''
                 print("Scrapping using XPath")
-                article = driver.find_elements_by_xpath('//*[@id="root"]/div/div[3]/article/div/div/section[1]/div/div')
+                article = driver.find_elements_by_xpath(
+                    '//*[@id="root"]/div/div[3]/article/div/div/section[1]/div/div')
                 article_title = article[0].find_elements_by_tag_name("h1")
 
                 for data in range(len(article)):
@@ -82,26 +82,27 @@ def scrap(inputLink,urlId):
                 '''
                     The content is been formatted to JSON
                 '''
-                medium = {"Title":article_title[0].text,"Content":allPara}
-                output = json.dumps(medium,indent=4)
+                medium = {"Title": article_title[0].text, "Content": allPara}
+                output = json.dumps(medium, indent=4)
                 output_json = json.loads(output)
                 '''
                     Returns the JSON data
                 '''
                 return output_json
-                
+
             except Exception as error_2:
                 '''
                 HANDLING EXCEPTION
                 UPDATE LINK STATUS IN DATABASE
                 '''
                 API_ENDPOINT = "{}/url/status-update/{id}?isScrappable=false"
-                linkStatus = API_ENDPOINT.format(DATABASE_API_ENDPOINT,id=urlId)
+                linkStatus = API_ENDPOINT.format(
+                    DATABASE_API_ENDPOINT, id=urlId)
                 req = requests.put(url=linkStatus)
                 print(req.text)
                 print(req.status_code)
                 print("Cannot be Scrapped!")
-                print("Sorry",error_2.__class__,"Occured")
+                print("Sorry", error_2.__class__, "Occured")
                 return None
         else:
             pass
