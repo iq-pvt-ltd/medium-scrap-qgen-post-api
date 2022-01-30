@@ -46,12 +46,10 @@ def scrap(inputLink,urlId):
             for text in temp_data:
                 allContent.append(text.text)
         allPara = "".join(allContent)
-        split_sentence = re.split('min read',allPara)[1:]
-        result = "".join(split_sentence)
         '''
             The content is been formatted to JSON
         '''
-        medium = {"Title":article_title.text,"Content":result}
+        medium = {"Title":article_title.text,"Content":allPara}
         output = json.dumps(medium,indent=2)
         output_json = json.loads(output)
         '''
