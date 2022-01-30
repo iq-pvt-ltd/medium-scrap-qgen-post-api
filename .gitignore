@@ -1,5 +1,4 @@
 env/
 __pycache__/
 models/
-nltk_data/
 testing_files/
