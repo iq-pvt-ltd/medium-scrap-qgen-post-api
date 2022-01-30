@@ -1,4 +1,4 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia.gcr.io/vaathiyar-rnd-2/medium-scrap-qgen-post-api/meddium-scrap-qgen-post-dev', '.']
-  timeout: 1800s
+- name: 'ubuntu'
+  args: ['sleep', '600']
+timeout: 1800s
