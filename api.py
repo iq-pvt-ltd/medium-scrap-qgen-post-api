@@ -36,4 +36,4 @@ async def qgen(context: Request):
         '''
         FUNCTION CALL TO GENERATE QUESTIONS
         '''
-        return output(req_info['message']['attributes']['urlId'], scrapContent["Content"])
+        return output(req_info['message']['attributes']['urlId'],scrapContent["Content"],scrapContent["Title"])
