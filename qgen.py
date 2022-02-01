@@ -5,14 +5,13 @@ import string
 import requests
 from google.cloud import storage
 import google.cloud.storage
-from scrapper import output_json
 from nltk.corpus import stopwords
 from flashtext import KeywordProcessor
 from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 
-def output(urlId, full_text):
+def output(urlId,full_text,title):
     ''''
     Q_GENERATOR FUNCTION-->Hugging Face
     '''
@@ -124,7 +123,7 @@ def output(urlId, full_text):
     fileName = "{}.txt".format(urlId)
     blob = bucket.blob(fileName)
     blob.upload_from_string(
-        "{}<->{}<->{}".format(output_json["Title"], filtered_keys, output_json["Content"]))
+        "{}<->{}<->{}".format(title,filtered_keys,full_text))
     print(".....Uploaded to Bucket.......")
 
     ''''
