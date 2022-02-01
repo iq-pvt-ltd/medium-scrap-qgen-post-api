@@ -1,3 +1,8 @@
+export SELENIUM_URL=https://selenium-chrome-2o4gzaw5dq-el.a.run.app/wd/hub
+export CLOUD_TRIGGER_URL=https://cloud-trigger-dev-2o4gzaw5dq-el.a.run.app
+
+gunicorn --bind :8000 --workers 3 --worker-class uvicorn.workers.UvicornWorker  --threads 8 --timeout 3600 api:app
+
 docker build -t asia.gcr.io/vaathiyar-rnd-2/meddium-scrap-qgen-post:v1 .
 
 docker push asia.gcr.io/vaathiyar-rnd-2/meddium-scrap-qgen-post:v1
