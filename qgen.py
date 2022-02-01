@@ -1,12 +1,15 @@
+import os
 import nltk
 import pke
 import string
 import requests
+from google.cloud import storage
+import google.cloud.storage
+from scrapper import output_json
 from nltk.corpus import stopwords
 from flashtext import KeywordProcessor
 from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import os
 
 
 def output(urlId, full_text):
@@ -111,9 +114,22 @@ def output(urlId, full_text):
         qList.append(qa)
     output_qa["questions"] = qList
 
+    '''
+    Uploading to GCS
+    '''
+    BUCKET_NAME = os.getenv('GCP_BUCKET_NAME')
+    print(".....Uploading to Bucket.......")
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(BUCKET_NAME)
+    fileName = "{}.txt".format(urlId)
+    blob = bucket.blob(fileName)
+    blob.upload_from_string(
+        "{}<->{}<->{}".format(output_json["Title"], filtered_keys, output_json["Content"]))
+    print(".....Uploaded to Bucket.......")
+
     ''''
-  POST THE QUESTIONS TO THE DATABASE
-  '''
+    POST THE QUESTIONS TO THE DATABASE
+    '''
 
     DATABASE_API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL')
     API_ENDPOINT = "{}/question/create"
