@@ -2,3 +2,4 @@ env/
 __pycache__/
 models/
 testing_files/
+Sum_Model/
