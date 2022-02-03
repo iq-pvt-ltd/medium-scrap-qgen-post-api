@@ -63,10 +63,10 @@ def scrap(inputLink, urlId):
         print("Sorry", error_1.__class__, "Occured")
         Error = True
 
-        if Error == True:
+        if Error:
             try:
                 '''
-                SCRAPPING MEDIUM USING X_PATH 
+                SCRAPPING MEDIUM USING X_PATH
                 '''
                 print("Scrapping using XPath")
                 article = driver.find_elements_by_xpath(
