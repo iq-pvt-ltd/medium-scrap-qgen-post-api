@@ -11,7 +11,7 @@ def summary(contentMedium):
     SUMMARY FUNCTION
     '''
     PATH = './Sum_Model/bert-large-uncased/'
-    summary_model = AutoModelForMaskedLM.from_pretrained("bert-large-uncased")
+    summary_model = AutoModelForMaskedLM.from_pretrained(PATH)
     summary_model = Summarizer()
     summary_content = summary_model(contentMedium, ratio=0.5)
     fullSummarizedContent = ''.join(summary_content)
