@@ -12,7 +12,7 @@ async def qgen():
     '''
     TESTING ENDPOINT
     '''
-    return "API IS WORKING"
+    return {"Message": "API is working"}
 
 
 @app.post("/qgen")
