@@ -123,7 +123,7 @@ def output(urlId, full_text, title, summary):
     fileName = "{}.txt".format(urlId)
     blob = bucket.blob(fileName)
     blob.upload_from_string(
-        "{}<->{}<->{}".format(title, filtered_keys, full_text))
+        "{}<->{}<->{}<->{}".format(title, filtered_keys, full_text,summary))
     print(".....Uploaded to Bucket.......")
 
     ''''
