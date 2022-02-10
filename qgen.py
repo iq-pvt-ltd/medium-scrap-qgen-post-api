@@ -11,7 +11,7 @@ from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 
-def output(urlId,full_text,title):
+def output(urlId, full_text, title, summary):
     ''''
     Q_GENERATOR FUNCTION-->Hugging Face
     '''
@@ -34,10 +34,10 @@ def output(urlId,full_text,title):
             out.append(key[0])
         return out
 
-    keywords = get_nouns_multipartite(full_text)
+    keywords = get_nouns_multipartite(summary)
     filtered_keys = []
     for keyword in keywords:
-        if keyword.lower() in full_text.lower():
+        if keyword.lower() in summary.lower():
             filtered_keys.append(keyword)
 
     """
@@ -55,7 +55,7 @@ def output(urlId,full_text,title):
                      for sentence in sentences if len(sentence) > 20]
         return sentences
 
-    sentences = tokenize_sentences(full_text)
+    sentences = tokenize_sentences(summary)
 
     def get_sentences_for_keyword(keywords, sentences):
         keyword_processor = KeywordProcessor()
@@ -123,7 +123,7 @@ def output(urlId,full_text,title):
     fileName = "{}.txt".format(urlId)
     blob = bucket.blob(fileName)
     blob.upload_from_string(
-        "{}<->{}<->{}".format(title,filtered_keys,full_text))
+        "{}<->{}<->{}<->{}".format(title, filtered_keys, full_text,summary))
     print(".....Uploaded to Bucket.......")
 
     ''''
