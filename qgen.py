@@ -131,7 +131,7 @@ def output(urlId,full_text,title):
     '''
 
     DATABASE_API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL')
-    API_ENDPOINT = "{}/question/create"
+    API_ENDPOINT = "{}/core/question-generations/complete-task"
     postDB = API_ENDPOINT.format(DATABASE_API_ENDPOINT)
     req = requests.post(url=postDB, json=output_qa)
 

@@ -95,10 +95,10 @@ def scrap(inputLink, urlId):
                 HANDLING EXCEPTION
                 UPDATE LINK STATUS IN DATABASE
                 '''
-                API_ENDPOINT = "{}/url/status-update/{id}?isScrappable=false"
+                API_ENDPOINT = "{}/core/urls/{id}/scrappable"
                 linkStatus = API_ENDPOINT.format(
                     DATABASE_API_ENDPOINT, id=urlId)
-                req = requests.put(url=linkStatus)
+                req = requests.put(url=linkStatus,data={"isScrappable": True})
                 print(req.text)
                 print(req.status_code)
                 print("Cannot be Scrapped!")
