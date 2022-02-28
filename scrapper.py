@@ -98,7 +98,7 @@ def scrap(inputLink, urlId):
                 API_ENDPOINT = "{}/core/urls/{id}/scrappable"
                 linkStatus = API_ENDPOINT.format(
                     DATABASE_API_ENDPOINT, id=urlId)
-                req = requests.put(url=linkStatus,data={"isScrappable": False})
+                req = requests.put(url=linkStatus,json={"isScrappable": False})
                 print(req.text)
                 print(req.status_code)
                 print("Cannot be Scrapped!")
