@@ -63,10 +63,10 @@ def scrap(inputLink, urlId):
         print("Sorry", error_1.__class__, "Occured")
         Error = True
 
-        if Error == True:
+        if Error:
             try:
                 '''
-                SCRAPPING MEDIUM USING X_PATH 
+                SCRAPPING MEDIUM USING X_PATH
                 '''
                 print("Scrapping using XPath")
                 article = driver.find_elements_by_xpath(
@@ -95,10 +95,10 @@ def scrap(inputLink, urlId):
                 HANDLING EXCEPTION
                 UPDATE LINK STATUS IN DATABASE
                 '''
-                API_ENDPOINT = "{}/url/status-update/{id}?isScrappable=false"
+                API_ENDPOINT = "{}/core/urls/{id}/scrappable"
                 linkStatus = API_ENDPOINT.format(
                     DATABASE_API_ENDPOINT, id=urlId)
-                req = requests.put(url=linkStatus)
+                req = requests.put(url=linkStatus,json={"isScrappable": False})
                 print(req.text)
                 print(req.status_code)
                 print("Cannot be Scrapped!")

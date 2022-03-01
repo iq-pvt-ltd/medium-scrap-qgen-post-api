@@ -5,14 +5,13 @@ import string
 import requests
 from google.cloud import storage
 import google.cloud.storage
-from scrapper import output_json
 from nltk.corpus import stopwords
 from flashtext import KeywordProcessor
 from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 
-def output(urlId, full_text):
+def output(urlId, full_text, title, summary):
     ''''
     Q_GENERATOR FUNCTION-->Hugging Face
     '''
@@ -35,10 +34,10 @@ def output(urlId, full_text):
             out.append(key[0])
         return out
 
-    keywords = get_nouns_multipartite(full_text)
+    keywords = get_nouns_multipartite(summary)
     filtered_keys = []
     for keyword in keywords:
-        if keyword.lower() in full_text.lower():
+        if keyword.lower() in summary.lower():
             filtered_keys.append(keyword)
 
     """
@@ -56,7 +55,7 @@ def output(urlId, full_text):
                      for sentence in sentences if len(sentence) > 20]
         return sentences
 
-    sentences = tokenize_sentences(full_text)
+    sentences = tokenize_sentences(summary)
 
     def get_sentences_for_keyword(keywords, sentences):
         keyword_processor = KeywordProcessor()
@@ -124,7 +123,7 @@ def output(urlId, full_text):
     fileName = "{}.txt".format(urlId)
     blob = bucket.blob(fileName)
     blob.upload_from_string(
-        "{}<->{}<->{}".format(output_json["Title"], filtered_keys, output_json["Content"]))
+        "{}<->{}<->{}<->{}".format(title, filtered_keys, full_text,summary))
     print(".....Uploaded to Bucket.......")
 
     ''''
@@ -132,7 +131,7 @@ def output(urlId, full_text):
     '''
 
     DATABASE_API_ENDPOINT = os.getenv('CLOUD_TRIGGER_URL')
-    API_ENDPOINT = "{}/question/create"
+    API_ENDPOINT = "{}/core/question-generations/complete-task"
     postDB = API_ENDPOINT.format(DATABASE_API_ENDPOINT)
     req = requests.post(url=postDB, json=output_qa)
 
