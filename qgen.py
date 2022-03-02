@@ -135,7 +135,7 @@ def output(urlId, full_text, title, summary):
     postDB = API_ENDPOINT.format(DATABASE_API_ENDPOINT)
     req = requests.post(url=postDB, json=output_qa)
 
-    if req.status_code != 200:
+    if req.status_code != 204:
         print("Error:", req.status_code, "occurred")
     else:
         '''

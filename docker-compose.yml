@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  docker-html-sample1:
+    image: asia.gcr.io/vaathiyar-rnd-2/medium-scrap-summary-qgen-post:v3
+    ports:
+      - "8000:8000"
+    environment:
+      SELENIUM_URL: http://192.168.1.9:4444/wd/hub
+      CLOUD_TRIGGER_URL: http://api.vaathi.ai
+      GCP_BUCKET_NAME: scrapped_data_dev
+      GOOGLE_APPLICATION_CREDENTIALS: /keys/vaathiyar-rnd-2-privatekey.json
+    volumes:
+      - ./keys:/keys
